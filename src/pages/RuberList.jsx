@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { nanoid } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +23,10 @@ function RuberList() {
     );
     setRuber({ name: "", description: "" });
   };
+
+  useEffect(() => {
+    document.title = "HackList";
+  }, []);
 
   if (rubers.length === 0) {
     return <div>No hay productos</div>;
