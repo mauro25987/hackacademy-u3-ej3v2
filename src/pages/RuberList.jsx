@@ -12,7 +12,6 @@ function RuberList() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(ruber);
     dispatch(
       addRuber({
         id: nanoid(),
