@@ -13,6 +13,11 @@ function Ruber() {
     state.rubers.find((ruber) => ruber.id === params.id),
   );
   const [product, setProduct] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addProduct({ idRuber: params.id, id: nanoid(), product }));
+    setProduct("");
+  };
 
   useEffect(() => {
     document.title = "Rubro";
@@ -33,17 +38,14 @@ function Ruber() {
       </div>
       <h3 className="text-xs italic">{ruber.description}</h3>
       <div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="product">Agregar Producto</label>
             <div className="relative">
               <FaCirclePlus
                 className="absolute right-2 top-1/2 -translate-y-1/2 transform"
-                onClick={() =>
-                  dispatch(
-                    addProduct({ idRuber: params.id, id: nanoid(), product }),
-                  )
-                }
+                type="submit"
+                onClick={handleSubmit}
               />
               <input
                 className="w-full rounded border border-gray-300 py-2 pl-2"
@@ -52,6 +54,7 @@ function Ruber() {
                 value={product}
                 type="text"
                 placeholder="Agregar nuevo item"
+                required
                 onChange={(e) => setProduct(e.target.value)}
               />
             </div>
@@ -67,14 +70,14 @@ function Ruber() {
                 >
                   <li>{product.name}</li>
                   <FaTrash
-                    onClick={() =>
+                    onClick={() => {
                       dispatch(
                         delProduct({
                           idRuber: params.id,
                           id: product.id,
                         }),
-                      )
-                    }
+                      );
+                    }}
                   />
                 </div>
               ))
