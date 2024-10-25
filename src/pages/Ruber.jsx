@@ -95,8 +95,9 @@ function Ruber() {
                       );
                     }}
                   />
-
-                  <span>{product.name}</span>
+                  {/* <span className={product.check && "line-through"}> */}
+                  {product.name}
+                  {/* </span> */}
                   <FaTrash
                     className="ms-auto"
                     onClick={() => {

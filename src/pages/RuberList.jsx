@@ -18,6 +18,8 @@ function RuberList() {
         name: ruber.name,
         description: ruber.description,
         date: "2024-11-11",
+        total: 0,
+        complet: 0,
       }),
     );
     setRuber({ name: "", description: "" });
@@ -29,23 +31,23 @@ function RuberList() {
 
   return (
     <>
-      {rubers.length > 0
-        ? rubers.map((ruber) => (
-            <Link to={`rubro/${ruber.id}`} key={ruber.id}>
-              <div className="flex items-center justify-between">
-                <div className="mr-8 flex items-center">
-                  <div className="mr-1 text-lg text-white">{ruber.name}</div>
-                  <div className="text-sm font-semibold italic text-slate-300">
-                    ({ruber.products.length}/{ruber.products.length})
-                  </div>
-                </div>
-                <div className="text-sm italic text-white">
-                  {ruber.description}
+      {rubers.length > 0 &&
+        rubers.map((ruber) => (
+          <Link to={`rubro/${ruber.id}`} key={ruber.id}>
+            <div className="flex items-center justify-between">
+              <div className="mr-8 text-lg text-white">{ruber.name}</div>
+              <div className="flex items-center">
+                <div className="text-sm font-semibold italic text-slate-300">
+                  ({ruber.total}/{ruber.complet})
                 </div>
               </div>
-            </Link>
-          ))
-        : "No hay Rubros, ingrese uno"}
+              <div className="text-sm italic text-white">
+                {ruber.description}
+              </div>
+            </div>
+            <div className="text-xs italic text-white">{ruber.date}</div>
+          </Link>
+        ))}
 
       <div className="mx-auto mb-4 max-w-md rounded bg-white px-8 pb-8 pt-6 shadow-md">
         <form onSubmit={handleSubmit}>
