@@ -27,25 +27,25 @@ function RuberList() {
     document.title = "HackList";
   }, []);
 
-  if (rubers.length === 0) {
-    return <div>No hay productos</div>;
-  }
-
   return (
     <>
-      {rubers.map((ruber) => (
-        <Link to={`rubro/${ruber.id}`} key={ruber.id}>
-          <div className="flex items-center justify-between">
-            <div className="mr-8 flex items-center">
-              <div className="mr-1 text-lg text-white">{ruber.name}</div>
-              <div className="text-sm font-semibold italic text-slate-300">
-                ({ruber.products.length}/{ruber.products.length})
+      {rubers.length > 0
+        ? rubers.map((ruber) => (
+            <Link to={`rubro/${ruber.id}`} key={ruber.id}>
+              <div className="flex items-center justify-between">
+                <div className="mr-8 flex items-center">
+                  <div className="mr-1 text-lg text-white">{ruber.name}</div>
+                  <div className="text-sm font-semibold italic text-slate-300">
+                    ({ruber.products.length}/{ruber.products.length})
+                  </div>
+                </div>
+                <div className="text-sm italic text-white">
+                  {ruber.description}
+                </div>
               </div>
-            </div>
-            <div className="text-sm italic text-white">{ruber.description}</div>
-          </div>
-        </Link>
-      ))}
+            </Link>
+          ))
+        : "No hay Rubros, ingrese uno"}
 
       <div className="mx-auto mb-4 max-w-md rounded bg-white px-8 pb-8 pt-6 shadow-md">
         <form onSubmit={handleSubmit}>

@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { delRuber, addProduct, delProduct } from "../reducer/rubersSlice";
+import {
+  delRuber,
+  addProduct,
+  delProduct,
+  checkProduct,
+} from "../reducer/rubersSlice";
 import { FaCirclePlus, FaTrash } from "react-icons/fa6";
 import { nanoid } from "@reduxjs/toolkit";
 
@@ -13,9 +18,17 @@ function Ruber() {
     state.rubers.find((ruber) => ruber.id === params.id),
   );
   const [product, setProduct] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addProduct({ idRuber: params.id, id: nanoid(), product }));
+    dispatch(
+      addProduct({
+        idRuber: params.id,
+        id: nanoid(),
+        product,
+        check: false,
+      }),
+    );
     setProduct("");
   };
 
@@ -64,12 +77,28 @@ function Ruber() {
           <ul>
             {ruber.products.length > 0 ? (
               ruber.products.map((product) => (
-                <div
+                <li
                   key={product.id}
                   className="flex items-center justify-between"
                 >
-                  <li>{product.name}</li>
+                  <input
+                    type="checkbox"
+                    className="mx-1"
+                    checked={product.check}
+                    onChange={(e) => {
+                      dispatch(
+                        checkProduct({
+                          check: e.target.checked,
+                          id: product.id,
+                          idRuber: params.id,
+                        }),
+                      );
+                    }}
+                  />
+
+                  <span>{product.name}</span>
                   <FaTrash
+                    className="ms-auto"
                     onClick={() => {
                       dispatch(
                         delProduct({
@@ -79,7 +108,7 @@ function Ruber() {
                       );
                     }}
                   />
-                </div>
+                </li>
               ))
             ) : (
               <li>No hay productos</li>
@@ -95,11 +124,3 @@ function Ruber() {
 }
 
 export default Ruber;
-
-// {
-// id: "1",
-// name: "Macro",
-// description: "Super Mayorista",
-// date: "2024-09-20",
-// products: [{ id: "0", name: "Tomate", check: "false" ,
-// }

@@ -6,14 +6,14 @@ const initialState = [
     name: "Geant",
     description: "Super Mayorista",
     date: "2024-09-11",
-    products: [{ id: "0", name: "Peras", check: "false" }],
+    products: [{ id: "0", name: "Peras", check: false }],
   },
   {
     id: "1",
     name: "Macro",
     description: "Super Mayorista",
     date: "2024-09-20",
-    products: [{ id: "0", name: "Tomate", check: "false" }],
+    products: [{ id: "0", name: "Tomate", check: true }],
   },
 ];
 
@@ -30,9 +30,9 @@ export const rubersSlice = createSlice({
       return state.filter((ruber) => ruber.id !== id);
     },
     addProduct: (state, action) => {
-      const { idRuber, id, product } = action.payload;
+      const { idRuber, id, product, check } = action.payload;
       const ruber = state.find((ruber) => ruber.id === idRuber);
-      ruber.products.push({ id, name: product, check: "false" });
+      ruber.products.push({ id, name: product, check });
     },
     delProduct: (state, action) => {
       const { idRuber, id } = action.payload;
@@ -40,9 +40,15 @@ export const rubersSlice = createSlice({
       const product = ruber.products.filter((product) => product.id !== id);
       ruber.products = product;
     },
+    checkProduct(state, action) {
+      const { check, id, idRuber } = action.payload;
+      const ruber = state.find((ruber) => ruber.id === idRuber);
+      const product = ruber.products.find((product) => product.id === id);
+      product.check = check;
+    },
   },
 });
 
-export const { addRuber, delRuber, addProduct, delProduct } =
+export const { addRuber, delRuber, addProduct, delProduct, checkProduct } =
   rubersSlice.actions;
 export default rubersSlice.reducer;
