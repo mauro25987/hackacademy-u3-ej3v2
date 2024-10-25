@@ -34,23 +34,23 @@ export const rubersSlice = createSlice({
       return state.filter((ruber) => ruber.id !== id);
     },
     addProduct: (state, action) => {
-      const { idRuber, id, product, check } = action.payload;
+      const { idRuber, id, product } = action.payload;
       const ruber = state.find((ruber) => ruber.id === idRuber);
-      ruber.products.push({ id, name: product, check });
+      ruber.products.push({ id, name: product, check: false });
       ruber.total += 1;
     },
     delProduct: (state, action) => {
-      const { idRuber, id } = action.payload;
+      const { idRuber, id, check } = action.payload;
       const ruber = state.find((ruber) => ruber.id === idRuber);
-      const product = ruber.products.filter((product) => product.id !== id);
-      ruber.products = product;
-      ruber.total -= 1;
-      if (product.check) {
+      const products = ruber.products.filter((product) => product.id !== id);
+      ruber.products = products;
+      if (check) {
         ruber.complet -= 1;
       }
+      ruber.total -= 1;
     },
     checkProduct(state, action) {
-      const { check, id, idRuber } = action.payload;
+      const { idRuber, id, check } = action.payload;
       const ruber = state.find((ruber) => ruber.id === idRuber);
       const product = ruber.products.find((product) => product.id === id);
       product.check = check;
@@ -63,6 +63,5 @@ export const rubersSlice = createSlice({
   },
 });
 
-export const { addRuber, delRuber, addProduct, delProduct, checkProduct } =
-  rubersSlice.actions;
+export const { addRuber, delRuber, addProduct, delProduct, checkProduct } = rubersSlice.actions;
 export default rubersSlice.reducer;

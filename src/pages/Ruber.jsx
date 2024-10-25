@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {
-  delRuber,
-  addProduct,
-  delProduct,
-  checkProduct,
-} from "../reducer/rubersSlice";
+import { delRuber, addProduct, delProduct, checkProduct } from "../reducer/rubersSlice";
 import { FaCirclePlus, FaTrash } from "react-icons/fa6";
 import { nanoid } from "@reduxjs/toolkit";
 
@@ -14,9 +9,7 @@ function Ruber() {
   const params = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const ruber = useSelector((state) =>
-    state.rubers.find((ruber) => ruber.id === params.id),
-  );
+  const ruber = useSelector((state) => state.rubers.find((ruber) => ruber.id === params.id));
   const [product, setProduct] = useState("");
 
   const handleSubmit = (e) => {
@@ -26,7 +19,6 @@ function Ruber() {
         idRuber: params.id,
         id: nanoid(),
         product,
-        check: false,
       }),
     );
     setProduct("");
@@ -55,11 +47,9 @@ function Ruber() {
           <div>
             <label htmlFor="product">Agregar Producto</label>
             <div className="relative">
-              <FaCirclePlus
-                className="absolute right-2 top-1/2 -translate-y-1/2 transform"
-                type="submit"
-                onClick={handleSubmit}
-              />
+              <button>
+                <FaCirclePlus className="absolute right-2 top-1/2 -translate-y-1/2 transform" />
+              </button>
               <input
                 className="w-full rounded border border-gray-300 py-2 pl-2"
                 id="product"
@@ -77,10 +67,7 @@ function Ruber() {
           <ul>
             {ruber.products.length > 0 ? (
               ruber.products.map((product) => (
-                <li
-                  key={product.id}
-                  className="flex items-center justify-between"
-                >
+                <li key={product.id} className="flex items-center justify-between">
                   <input
                     type="checkbox"
                     className="mx-1"
@@ -88,16 +75,16 @@ function Ruber() {
                     onChange={(e) => {
                       dispatch(
                         checkProduct({
-                          check: e.target.checked,
-                          id: product.id,
                           idRuber: params.id,
+                          id: product.id,
+                          check: e.target.checked,
                         }),
                       );
                     }}
                   />
-                  {/* <span className={product.check && "line-through"}> */}
-                  {product.name}
-                  {/* </span> */}
+                  <span className={product.check ? "line-through" : "no-underline"}>
+                    {product.name}
+                  </span>
                   <FaTrash
                     className="ms-auto"
                     onClick={() => {
@@ -105,6 +92,7 @@ function Ruber() {
                         delProduct({
                           idRuber: params.id,
                           id: product.id,
+                          check: product.check,
                         }),
                       );
                     }}

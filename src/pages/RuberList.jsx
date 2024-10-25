@@ -17,12 +17,18 @@ function RuberList() {
         id: nanoid(),
         name: ruber.name,
         description: ruber.description,
-        date: "2024-11-11",
+        date: setDateTime(),
         total: 0,
         complet: 0,
       }),
     );
     setRuber({ name: "", description: "" });
+  };
+
+  const setDateTime = () => {
+    const date = new Date();
+    const [year, month, day] = [date.getFullYear(), date.getMonth() + 1, date.getDate()];
+    return `${year}-${month}-${day}`;
   };
 
   useEffect(() => {
@@ -38,12 +44,10 @@ function RuberList() {
               <div className="mr-8 text-lg text-white">{ruber.name}</div>
               <div className="flex items-center">
                 <div className="text-sm font-semibold italic text-slate-300">
-                  ({ruber.total}/{ruber.complet})
+                  ({ruber.complet}/{ruber.total})
                 </div>
               </div>
-              <div className="text-sm italic text-white">
-                {ruber.description}
-              </div>
+              <div className="text-sm italic text-white">{ruber.description}</div>
             </div>
             <div className="text-xs italic text-white">{ruber.date}</div>
           </Link>
@@ -51,14 +55,9 @@ function RuberList() {
 
       <div className="mx-auto mb-4 max-w-md rounded bg-white px-8 pb-8 pt-6 shadow-md">
         <form onSubmit={handleSubmit}>
-          <h2 className="mb-6 text-center text-2xl font-bold">
-            Formulario de Rubro
-          </h2>
+          <h2 className="mb-6 text-center text-2xl font-bold">Formulario de Rubro</h2>
           <div className="mb-4">
-            <label
-              className="mb-2 block text-sm font-bold text-gray-700"
-              htmlFor="name"
-            >
+            <label className="mb-2 block text-sm font-bold text-gray-700" htmlFor="name">
               Nombre
             </label>
             <input
@@ -69,16 +68,11 @@ function RuberList() {
               type="text"
               placeholder="Nombre de Rubro"
               required
-              onChange={(e) =>
-                setRuber({ ...ruber, [e.target.name]: e.target.value })
-              }
+              onChange={(e) => setRuber({ ...ruber, [e.target.name]: e.target.value })}
             />
           </div>
           <div className="mb-4">
-            <label
-              className="mb-2 block text-sm font-bold text-gray-700"
-              htmlFor="description"
-            >
+            <label className="mb-2 block text-sm font-bold text-gray-700" htmlFor="description">
               Descripcion
             </label>
             <input
@@ -88,9 +82,7 @@ function RuberList() {
               value={ruber.description}
               type="text"
               placeholder="Descripcion de Rubro"
-              onChange={(e) =>
-                setRuber({ ...ruber, [e.target.name]: e.target.value })
-              }
+              onChange={(e) => setRuber({ ...ruber, [e.target.name]: e.target.value })}
             />
           </div>
           <div className="flex items-center justify-between">
@@ -98,7 +90,7 @@ function RuberList() {
               className="focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
               type="submit"
             >
-              Registrarse
+              Agregar Lista
             </button>
           </div>
         </form>
