@@ -25,8 +25,12 @@ export const rubersSlice = createSlice({
       const { id, name, description, date } = action.payload;
       state.push({ id, name, description, date, products: [] });
     },
+    delRuber: (state, action) => {
+      const { id } = action.payload;
+      return state.filter((ruber) => ruber.id !== id);
+    },
   },
 });
 
-export const { addRuber } = rubersSlice.actions;
+export const { addRuber, delRuber } = rubersSlice.actions;
 export default rubersSlice.reducer;
