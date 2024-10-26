@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layout from "./components/components";
+import { Layout } from "./components/components";
 import { RuberList, Ruber, Error } from "./pages/pages";
 
 const App = () => {

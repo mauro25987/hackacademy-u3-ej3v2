@@ -1,3 +1,4 @@
 import Layout from "./Layout";
+import Modal from "./Modal";
 
-export default Layout;
+export { Layout, Modal };
