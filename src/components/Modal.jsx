@@ -30,51 +30,50 @@ function Modal({ setShowModal }) {
   };
 
   return (
-    <div className="mx-auto mb-4 max-w-md rounded bg-white px-8 pb-8 pt-6 shadow-md">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 backdrop-blur-sm">
       <form onSubmit={handleSubmit}>
-        <h2 className="mb-6 text-center text-2xl font-bold">Formulario de Rubro</h2>
-        <div className="mb-4">
-          <label className="mb-2 block text-sm font-bold text-gray-700" htmlFor="name">
-            Nombre
-          </label>
-          <input
-            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-            id="name"
-            name="name"
-            value={ruber.name}
-            type="text"
-            placeholder="Nombre de Rubro"
-            required
-            onChange={(e) => setRuber({ ...ruber, [e.target.name]: e.target.value })}
-          />
-        </div>
-        <div className="mb-4">
-          <label className="mb-2 block text-sm font-bold text-gray-700" htmlFor="description">
-            Descripcion
-          </label>
-          <input
-            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-            id="description"
-            name="description"
-            value={ruber.description}
-            type="text"
-            placeholder="Descripcion de Rubro"
-            onChange={(e) => setRuber({ ...ruber, [e.target.name]: e.target.value })}
-          />
-        </div>
-        <div className="flex items-center justify-between">
-          <button
-            className="focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
-            type="submit"
-          >
-            Agregar Lista
-          </button>
-          <button
-            className="focus:shadow-outline rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700 focus:outline-none"
-            onClick={() => setShowModal(false)}
-          >
-            Cancelar
-          </button>
+        <div className="flex flex-col items-center justify-center gap-5 rounded bg-white p-5">
+          <div className="mb-4 text-2xl font-semibold">Formulario de Rubro</div>
+          <div className="self-end">
+            <label htmlFor="name" className="m-3 font-semibold">
+              Rubro:
+            </label>
+            <input
+              className="w-64 rounded-lg border-2 border-gray-300 px-4 duration-200 placeholder:text-center placeholder:text-sm placeholder:italic focus:border-indigo-500 focus:outline-none"
+              id="name"
+              name="name"
+              value={ruber.name}
+              type="text"
+              placeholder="Nombre de Rubro"
+              required
+              onChange={(e) => setRuber({ ...ruber, [e.target.name]: e.target.value })}
+            />
+          </div>
+          <div className="self-end">
+            <label htmlFor="description" className="m-3 font-semibold">
+              Descripcion:
+            </label>
+            <input
+              className="w-64 rounded-lg border-2 border-gray-300 px-4 duration-200 placeholder:text-center placeholder:text-sm placeholder:italic focus:border-indigo-500 focus:outline-none"
+              id="description"
+              name="description"
+              value={ruber.description}
+              type="text"
+              placeholder="Descripcion de Rubro"
+              onChange={(e) => setRuber({ ...ruber, [e.target.name]: e.target.value })}
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <button className="m-5 rounded-sm bg-blue-500 px-6 py-2 font-bold text-white hover:bg-blue-700">
+              Agregar
+            </button>
+            <button
+              className="m-5 rounded-sm bg-red-500 px-6 py-2 font-bold text-white hover:bg-red-700"
+              onClick={() => setShowModal(false)}
+            >
+              Cancelar
+            </button>
+          </div>
         </div>
       </form>
     </div>
