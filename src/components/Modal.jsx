@@ -32,14 +32,14 @@ function Modal({ setShowModal }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 backdrop-blur-sm">
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col items-center justify-center gap-5 rounded bg-white p-5">
+        <div className="flex flex-col items-center justify-center gap-5 rounded bg-white pt-5 sm:p-5">
           <div className="mb-4 text-2xl font-semibold">Formulario de Rubro</div>
           <div className="self-end">
             <label htmlFor="name" className="m-3 font-semibold">
               Rubro:
             </label>
             <input
-              className="w-64 rounded-lg border-2 border-gray-300 px-4 duration-200 placeholder:text-center placeholder:text-sm placeholder:italic focus:border-indigo-500 focus:outline-none"
+              className="mr-2 w-48 rounded-lg border-2 border-gray-300 px-4 duration-200 placeholder:text-center placeholder:text-sm placeholder:italic focus:border-indigo-500 focus:outline-none sm:mr-0 sm:w-64"
               id="name"
               name="name"
               value={ruber.name}
@@ -54,7 +54,7 @@ function Modal({ setShowModal }) {
               Descripcion:
             </label>
             <input
-              className="w-64 rounded-lg border-2 border-gray-300 px-4 duration-200 placeholder:text-center placeholder:text-sm placeholder:italic focus:border-indigo-500 focus:outline-none"
+              className="mr-2 w-48 rounded-lg border-2 border-gray-300 px-4 duration-200 placeholder:text-center placeholder:text-sm placeholder:italic focus:border-indigo-500 focus:outline-none sm:mr-0 sm:w-64"
               id="description"
               name="description"
               value={ruber.description}
