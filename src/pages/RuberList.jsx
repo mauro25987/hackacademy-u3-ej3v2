@@ -13,24 +13,33 @@ function RuberList() {
 
   return (
     <>
-      {rubers.length > 0 &&
-        rubers.map((ruber) => (
-          <Link to={`rubro/${ruber.id}`} key={ruber.id}>
-            <div className="flex items-center justify-between">
-              <div className="mr-8 text-lg text-white">{ruber.name}</div>
-              <div className="flex items-center">
-                <div className="text-sm font-semibold italic text-slate-300">
-                  ({ruber.complet}/{ruber.total})
+      <ul className="space-y-3">
+        {rubers.length > 0 &&
+          rubers.map((ruber) => (
+            <li
+              className="rounded-lg border bg-gray-100 p-4 hover:border-red-800 hover:shadow-inner"
+              key={ruber.id}
+            >
+              <Link to={`rubro/${ruber.id}`} key={ruber.id}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <span className="mr-2 text-lg font-semibold text-gray-800">{ruber.name}</span>
+                    <span className="font-semibold text-gray-800">
+                      ({ruber.complet}/{ruber.total})
+                    </span>
+                  </div>
+                  <span className="text-sm italic text-gray-600">{ruber.description}</span>
                 </div>
-              </div>
-              <div className="text-sm italic text-white">{ruber.description}</div>
-            </div>
-            <div className="text-xs italic text-white">{ruber.date}</div>
-          </Link>
-        ))}
+                <div className="mt-2 text-sm text-gray-500">
+                  creado el: <span className="font-semibold italic">{ruber.date}</span>
+                </div>
+              </Link>
+            </li>
+          ))}
+      </ul>
       <div>
         <button
-          className="mt-2 rounded-lg border-2 border-white bg-blue-800 px-4 py-1 font-semibold text-white hover:bg-blue-400"
+          className="mt-4 rounded-lg border-2 border-white bg-blue-800 px-4 py-1 font-semibold text-white hover:bg-blue-400"
           onClick={() => setShowModal(true)}
         >
           Agregar

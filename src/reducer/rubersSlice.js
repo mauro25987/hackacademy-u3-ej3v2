@@ -4,7 +4,7 @@ const initialState = [
   {
     id: "0",
     name: "Geant",
-    description: "Super Mayorista",
+    description: "Supermercado",
     date: "2024-09-11",
     total: 1,
     complet: 0,
@@ -17,7 +17,7 @@ const initialState = [
     date: "2024-09-20",
     total: 1,
     complet: 1,
-    products: [{ id: "0", name: "Tomate", check: true }],
+    products: [{ id: "0", name: "Tomates", check: true }],
   },
 ];
 
