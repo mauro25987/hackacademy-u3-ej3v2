@@ -45,7 +45,7 @@ function Ruber() {
     <>
       <h2 className="mb-8 text-center text-xl font-semibold text-gray-900">Lista de compras</h2>
       <div className="flex items-center justify-between">
-        {IsEditing && (
+        {IsEditing ? (
           <input
             type="text"
             value={nameRuber}
@@ -53,14 +53,16 @@ function Ruber() {
             onBlur={() => {
               setIsEditing(false);
               nameRuber.trim() === ""
-                ? ruber.name
+                ? (ruber.name, setNameRuber(ruber.name))
                 : dispatch(editRuber({ idRuber: ruber.id, name: nameRuber }));
             }}
             className="mr-2 w-48 rounded-lg border-2 border-gray-300 px-4 duration-200 focus:border-indigo-500 focus:outline-none sm:mr-0 sm:w-64"
             autoFocus
           />
+        ) : (
+          <h1 className="text-lg font-semibold text-gray-800">{ruber.name}</h1>
         )}
-        <h1 className="text-lg font-semibold text-gray-800">{ruber.name}</h1>
+
         <div className="flex items-center">
           <FaPencil
             className="mx-1 cursor-pointer text-violet-800 hover:text-violet-400"
