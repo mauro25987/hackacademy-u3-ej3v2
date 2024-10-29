@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { delRuber, addProduct, delProduct, checkProduct, editRuber } from "../reducer/rubersSlice";
+import {
+  delRuber,
+  addProduct,
+  delProduct,
+  checkProduct,
+  editRuber,
+  editProduct,
+} from "../reducer/rubersSlice";
 import { FaCirclePlus, FaPencil, FaTrash } from "react-icons/fa6";
 import { nanoid } from "@reduxjs/toolkit";
 
@@ -14,6 +21,9 @@ function Ruber() {
   const [product, setProduct] = useState("");
   const [IsEditing, setIsEditing] = useState(false);
   const [nameRuber, setNameRuber] = useState(ruber.name);
+
+  // const [edit, setEdit] = useState(false);
+  // const [name, setName] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -57,7 +67,7 @@ function Ruber() {
             onClick={() => setIsEditing(true)}
           />
           <FaTrash
-            className="text-red-800 hover:text-red-400"
+            className="cursor-pointer text-red-800 hover:text-red-400"
             onClick={() => {
               dispatch(delRuber({ id: params.id }));
               navigate("/");
@@ -87,43 +97,61 @@ function Ruber() {
 
       <ul className="space-y-2">
         {ruber.products.length > 0 ? (
-          ruber.products.map((product) => (
-            <li key={product.id} className="rounded-lg bg-gray-100 p-4">
+          ruber.products.map((prod) => (
+            <li key={prod.id} className="rounded-lg bg-gray-100 p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <input
                     className="mr-2 h-3 w-3 rounded-full bg-gray-200"
                     type="checkbox"
-                    checked={product.check}
+                    checked={prod.check}
                     onChange={(e) => {
                       dispatch(
                         checkProduct({
                           idRuber: params.id,
-                          id: product.id,
+                          id: prod.id,
                           check: e.target.checked,
                         }),
                       );
                     }}
                   />
+                  {/* {edit && (
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      onBlur={() => {
+                        setEdit(false);
+                        name.trim() === ""
+                          ? prod.name
+                          : dispatch(editProduct({ id: prod.id, name }));
+                      }}
+                      className="mr-2 w-48 rounded-lg border-2 border-gray-300 px-4 duration-200 focus:border-indigo-500 focus:outline-none sm:mr-0 sm:w-64"
+                      autoFocus
+                    />
+                  )} */}
                   <span
-                    className={`text-md ${product.check ? "text-gray-500 line-through" : "text-black no-underline"} `}
+                    className={`text-md ${prod.check ? "text-gray-500 line-through" : "text-black no-underline"} `}
                   >
-                    {product.name}
+                    {prod.name}
                   </span>
                 </div>
                 <div className="flex items-center">
-                  <FaPencil
+                  {/* <FaPencil
                     className="mx-1 cursor-pointer text-violet-800 hover:text-violet-400"
-                    onClick={() => console.log("hola")}
-                  />
+                    onClick={() => {
+                      setEdit(true);
+                      setName(prod.name);
+                    }}
+                  /> */}
                   <FaTrash
-                    className="text-red-800 hover:text-red-400"
+                    className="cursor-pointer text-red-800 hover:text-red-400"
                     onClick={() => {
                       dispatch(
                         delProduct({
                           idRuber: params.id,
-                          id: product.id,
-                          check: product.check,
+                          id: prod.id,
+                          check: prod.check,
                         }),
                       );
                     }}
@@ -139,10 +167,7 @@ function Ruber() {
         )}
       </ul>
 
-      <button
-        className="mt-4 rounded-lg border-2 border-white bg-red-800 px-4 py-1 font-semibold text-white hover:bg-red-400"
-        onClick={() => setShowModal(true)}
-      >
+      <button className="mt-4 rounded-lg border-2 border-white bg-red-800 px-4 py-1 font-semibold text-white hover:bg-red-400">
         <Link to="/">Volver</Link>
       </button>
     </>

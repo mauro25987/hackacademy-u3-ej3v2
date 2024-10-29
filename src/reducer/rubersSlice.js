@@ -65,9 +65,12 @@ export const rubersSlice = createSlice({
       const ruber = state.find((ruber) => ruber.id === idRuber);
       ruber.name = name;
     },
+    editProduct(state, action) {
+      console.log(action.payload);
+    },
   },
 });
 
-export const { addRuber, delRuber, addProduct, delProduct, checkProduct, editRuber } =
+export const { addRuber, delRuber, addProduct, delProduct, checkProduct, editRuber, editProduct } =
   rubersSlice.actions;
 export default rubersSlice.reducer;
