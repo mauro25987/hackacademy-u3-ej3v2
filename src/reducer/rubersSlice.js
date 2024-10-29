@@ -60,8 +60,14 @@ export const rubersSlice = createSlice({
         ruber.complet -= 1;
       }
     },
+    editRuber(state, action) {
+      const { idRuber, name } = action.payload;
+      const ruber = state.find((ruber) => ruber.id === idRuber);
+      ruber.name = name;
+    },
   },
 });
 
-export const { addRuber, delRuber, addProduct, delProduct, checkProduct } = rubersSlice.actions;
+export const { addRuber, delRuber, addProduct, delProduct, checkProduct, editRuber } =
+  rubersSlice.actions;
 export default rubersSlice.reducer;

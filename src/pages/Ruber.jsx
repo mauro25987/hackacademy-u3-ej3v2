@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { delRuber, addProduct, delProduct, checkProduct } from "../reducer/rubersSlice";
-import { FaCirclePlus, FaTrash } from "react-icons/fa6";
+import { delRuber, addProduct, delProduct, checkProduct, editRuber } from "../reducer/rubersSlice";
+import { FaCirclePlus, FaPencil, FaTrash } from "react-icons/fa6";
 import { nanoid } from "@reduxjs/toolkit";
 
 function Ruber() {
@@ -10,7 +10,10 @@ function Ruber() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const ruber = useSelector((state) => state.rubers.find((ruber) => ruber.id === params.id));
+
   const [product, setProduct] = useState("");
+  const [IsEditing, setIsEditing] = useState(false);
+  const [nameRuber, setNameRuber] = useState(ruber.name);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,14 +35,35 @@ function Ruber() {
     <>
       <h2 className="mb-8 text-center text-xl font-semibold text-gray-900">Lista de compras</h2>
       <div className="flex items-center justify-between">
+        {IsEditing && (
+          <input
+            type="text"
+            value={nameRuber}
+            onChange={(e) => setNameRuber(e.target.value)}
+            onBlur={() => {
+              setIsEditing(false);
+              nameRuber.trim() === ""
+                ? ruber.name
+                : dispatch(editRuber({ idRuber: ruber.id, name: nameRuber }));
+            }}
+            className="mr-2 w-48 rounded-lg border-2 border-gray-300 px-4 duration-200 focus:border-indigo-500 focus:outline-none sm:mr-0 sm:w-64"
+            autoFocus
+          />
+        )}
         <h1 className="text-lg font-semibold text-gray-800">{ruber.name}</h1>
-        <FaTrash
-          className="text-red-800 hover:text-red-400"
-          onClick={() => {
-            dispatch(delRuber({ id: params.id }));
-            navigate("/");
-          }}
-        />
+        <div className="flex items-center">
+          <FaPencil
+            className="mx-1 cursor-pointer text-violet-800 hover:text-violet-400"
+            onClick={() => setIsEditing(true)}
+          />
+          <FaTrash
+            className="text-red-800 hover:text-red-400"
+            onClick={() => {
+              dispatch(delRuber({ id: params.id }));
+              navigate("/");
+            }}
+          />
+        </div>
       </div>
       <h3 className="mb-2 text-right text-xs italic">{ruber.description}</h3>
 
@@ -87,18 +111,24 @@ function Ruber() {
                     {product.name}
                   </span>
                 </div>
-                <FaTrash
-                  className="text-red-800 hover:text-red-400"
-                  onClick={() => {
-                    dispatch(
-                      delProduct({
-                        idRuber: params.id,
-                        id: product.id,
-                        check: product.check,
-                      }),
-                    );
-                  }}
-                />
+                <div className="flex items-center">
+                  <FaPencil
+                    className="mx-1 cursor-pointer text-violet-800 hover:text-violet-400"
+                    onClick={() => console.log("hola")}
+                  />
+                  <FaTrash
+                    className="text-red-800 hover:text-red-400"
+                    onClick={() => {
+                      dispatch(
+                        delProduct({
+                          idRuber: params.id,
+                          id: product.id,
+                          check: product.check,
+                        }),
+                      );
+                    }}
+                  />
+                </div>
               </div>
             </li>
           ))
