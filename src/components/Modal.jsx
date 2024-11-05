@@ -1,6 +1,6 @@
-import { useDispatch } from "react-redux";
-import { useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { addRuber } from "../reducer/rubersSlice";
 
 function Modal({ setShowModal }) {

@@ -1,4 +1,5 @@
 import Layout from "./Layout";
 import Modal from "./Modal";
+import RuberProduct from "./RuberProduct";
 
-export { Layout, Modal };
+export { Layout, Modal, RuberProduct };

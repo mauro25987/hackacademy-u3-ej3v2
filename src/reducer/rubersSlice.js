@@ -66,7 +66,14 @@ export const rubersSlice = createSlice({
       ruber.name = name;
     },
     editProduct(state, action) {
-      console.log(action.payload);
+      const { idRuber, id, name } = action.payload;
+      const ruber = state.find((ruber) => ruber.id === idRuber);
+      if (ruber) {
+        const product = ruber.products.find((prod) => prod.id === id);
+        if (product) {
+          product.name = name;
+        }
+      }
     },
   },
 });
