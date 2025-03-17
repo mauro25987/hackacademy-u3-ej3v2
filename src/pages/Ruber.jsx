@@ -64,7 +64,7 @@ function Ruber() {
             className="cursor-pointer text-red-800 hover:text-red-400"
             onClick={() => {
               dispatch(delRuber({ id: params.id }))
-              navigate('/')
+              navigate('/hackacademy-u3-ej3v2/')
             }}
           />
         </div>
@@ -92,7 +92,7 @@ function Ruber() {
       <RuberProduct ruber={ruber} params={params} />
 
       <button className="mt-4 rounded-lg border-2 border-white bg-red-800 px-4 py-1 font-semibold text-white hover:bg-red-400">
-        <Link to="/">Volver</Link>
+        <Link to="/hackacademy-u3-ej3v2/">Volver</Link>
       </button>
     </>
   )

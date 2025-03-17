@@ -11,12 +11,12 @@ function Error() {
       <div className="flex flex-col items-center">
         <div className="mb-5 text-center text-2xl font-bold text-gray-900">Error 404</div>
         <div>
-          <button
-            className="mt-4 rounded-lg border-2 border-white bg-red-800 px-4 py-1 font-semibold text-white hover:bg-red-400"
-            onClick={() => setShowModal(true)}
+          <Link
+            to="/hackacademy-u3-ej3v2/"
+            className="mt-4 inline-block rounded-lg border-2 border-white bg-red-800 px-4 py-1 text-center font-semibold text-white hover:bg-red-400"
           >
-            <Link to="/">Volver</Link>
-          </button>
+            Volver
+          </Link>
         </div>
       </div>
     </>
