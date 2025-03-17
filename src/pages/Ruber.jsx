@@ -2,25 +2,25 @@ import { nanoid } from '@reduxjs/toolkit'
 import { useEffect, useState } from 'react'
 import { FaCirclePlus, FaPencil, FaTrash } from 'react-icons/fa6'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router'
 import { addProduct, delRuber, editRuber } from '../reducer/rubersSlice'
 import { RuberProduct } from './../components/components'
 
 function Ruber() {
-  const params = useParams()
+  const { id } = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const ruber = useSelector(state => state.rubers.find(ruber => ruber.id === params.id))
+  const ruber = useSelector(state => state.rubers.find(ruber => ruber.id === id))
 
   const [product, setProduct] = useState('')
-  const [IsEditing, setIsEditing] = useState(false)
-  const [nameRuber, setNameRuber] = useState(ruber.name)
+  const [nameRuber, setNameRuber] = useState('')
+  const [editinRuberId, setEditinRuberId] = useState(null)
 
   const handleSubmit = e => {
     e.preventDefault()
     dispatch(
       addProduct({
-        idRuber: params.id,
+        idRuber: id,
         id: nanoid(),
         product,
       })
@@ -28,27 +28,33 @@ function Ruber() {
     setProduct('')
   }
 
+  const handleEditRuberName = () => {
+    if (nameRuber.trim() === '') {
+      setNameRuber(ruber.name)
+    } else {
+      dispatch(editRuber({ idRuber: id, name: nameRuber }))
+    }
+    setEditinRuberId(null)
+    setNameRuber('')
+  }
+
   useEffect(() => {
     document.title = 'Rubro'
   }, [])
 
-  const isEditRuberIcon = IsEditing ? (
-    <input
-      type="text"
-      value={nameRuber}
-      onChange={e => setNameRuber(e.target.value)}
-      onBlur={() => {
-        setIsEditing(false)
-        nameRuber.trim() === ''
-          ? (ruber.name, setNameRuber(ruber.name))
-          : dispatch(editRuber({ idRuber: ruber.id, name: nameRuber }))
-      }}
-      className="mr-2 w-48 rounded-lg border-2 border-gray-300 px-4 duration-200 focus:border-indigo-500 focus:outline-none sm:mr-0 sm:w-64"
-      autoFocus
-    />
-  ) : (
-    <h1 className="text-lg font-semibold text-gray-800">{ruber.name}</h1>
-  )
+  const isEditRuberIcon =
+    editinRuberId === id ? (
+      <input
+        type="text"
+        value={nameRuber}
+        onChange={e => setNameRuber(e.target.value)}
+        onBlur={handleEditRuberName}
+        className="mr-2 w-48 rounded-lg border-2 border-gray-300 px-4 duration-200 focus:border-indigo-500 focus:outline-none sm:mr-0 sm:w-64"
+        autoFocus
+      />
+    ) : (
+      <h1 className="text-lg font-semibold text-gray-800">{ruber.name}</h1>
+    )
 
   return (
     <>
@@ -58,12 +64,12 @@ function Ruber() {
         <div className="flex items-center">
           <FaPencil
             className="mx-1 cursor-pointer text-violet-800 hover:text-violet-400"
-            onClick={() => setIsEditing(true)}
+            onClick={() => setEditinRuberId(id)}
           />
           <FaTrash
             className="cursor-pointer text-red-800 hover:text-red-400"
             onClick={() => {
-              dispatch(delRuber({ id: params.id }))
+              dispatch(delRuber({ id }))
               navigate('/hackacademy-u3-ej3v2/')
             }}
           />
@@ -73,9 +79,10 @@ function Ruber() {
 
       <form onSubmit={handleSubmit} className="mb-4">
         <div className="relative">
-          <button>
-            <FaCirclePlus className="absolute right-2 top-1/2 -translate-y-1/2 transform text-blue-800 hover:text-blue-400" />
+          <button className="absolute top-1/2 right-2 -translate-y-1/2 transform text-blue-800 hover:text-blue-400">
+            <FaCirclePlus />
           </button>
+
           <input
             className="w-full rounded-lg border-2 border-gray-300 px-4 py-2 duration-200 placeholder:text-center placeholder:text-sm placeholder:italic focus:border-indigo-500 focus:outline-none"
             id="product"
@@ -89,7 +96,7 @@ function Ruber() {
         </div>
       </form>
 
-      <RuberProduct ruber={ruber} params={params} />
+      <RuberProduct ruber={ruber} />
 
       <button className="mt-4 rounded-lg border-2 border-white bg-red-800 px-4 py-1 font-semibold text-white hover:bg-red-400">
         <Link to="/hackacademy-u3-ej3v2/">Volver</Link>

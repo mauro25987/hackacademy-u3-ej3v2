@@ -3,7 +3,7 @@ import { FaPencil, FaTrash } from 'react-icons/fa6'
 import { useDispatch } from 'react-redux'
 import { checkProduct, delProduct, editProduct } from '../reducer/rubersSlice'
 
-function RuberProduct({ ruber, params }) {
+function RuberProduct({ ruber }) {
   const dispatch = useDispatch()
   const [isEditingProduct, setEditingProduct] = useState(null)
   const [name, setName] = useState('')
@@ -22,7 +22,7 @@ function RuberProduct({ ruber, params }) {
                   onChange={e => {
                     dispatch(
                       checkProduct({
-                        idRuber: params.id,
+                        idRuber: ruber.id,
                         id: prod.id,
                         check: e.target.checked,
                       })
@@ -37,7 +37,7 @@ function RuberProduct({ ruber, params }) {
                     onBlur={() => {
                       name.trim() === ''
                         ? setName(prod.name)
-                        : dispatch(editProduct({ idRuber: params.id, id: prod.id, name }))
+                        : dispatch(editProduct({ idRuber: ruber.id, id: prod.id, name }))
                       setEditingProduct(null)
                     }}
                     className="mr-2 w-48 rounded-lg border-2 border-gray-300 px-4 duration-200 focus:border-indigo-500 focus:outline-none sm:mr-0 sm:w-64"
@@ -64,7 +64,7 @@ function RuberProduct({ ruber, params }) {
                   onClick={() => {
                     dispatch(
                       delProduct({
-                        idRuber: params.id,
+                        idRuber: ruber.id,
                         id: prod.id,
                         check: prod.check,
                       })

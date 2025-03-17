@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { Modal } from '../components/components'
 
 function RuberList() {
@@ -14,7 +14,7 @@ function RuberList() {
   return (
     <>
       <ul className="space-y-3">
-        {rubers.length > 0 &&
+        {rubers.length > 0 ? (
           rubers.map(ruber => (
             <li
               className="rounded-lg border bg-gray-100 p-4 hover:border-red-800 hover:shadow-inner"
@@ -28,14 +28,17 @@ function RuberList() {
                       ({ruber.complet}/{ruber.total})
                     </span>
                   </div>
-                  <span className="text-sm italic text-gray-600">{ruber.description}</span>
+                  <span className="text-sm text-gray-600 italic">{ruber.description}</span>
                 </div>
                 <div className="mt-2 text-sm text-gray-500">
                   creado el: <span className="font-semibold italic">{ruber.date}</span>
                 </div>
               </Link>
             </li>
-          ))}
+          ))
+        ) : (
+          <div className="text-center text-lg font-semibold">No hay Rubros</div>
+        )}
       </ul>
       <div>
         <button
