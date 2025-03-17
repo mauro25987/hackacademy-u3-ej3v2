@@ -20,7 +20,7 @@ function RuberList() {
               className="rounded-lg border bg-gray-100 p-4 hover:border-red-800 hover:shadow-inner"
               key={ruber.id}
             >
-              <Link to={`/hackacademy-u3-ej3v2/rubro/${ruber.id}`} key={ruber.id}>
+              <Link to={`/react-todo-js/rubro/${ruber.id}`} key={ruber.id}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <span className="mr-2 text-lg font-semibold text-gray-800">{ruber.name}</span>

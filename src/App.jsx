@@ -5,11 +5,11 @@ import { Error, Ruber, RuberList } from './pages/pages'
 const App = () => {
   const router = createBrowserRouter([
     {
-      path: '/hackacademy-u3-ej3v2/',
+      path: '/react-todo-js/',
       element: <Layout />,
       children: [
         { index: true, element: <RuberList /> },
-        { path: '/hackacademy-u3-ej3v2/rubro/:id?', element: <Ruber /> },
+        { path: '/react-todo-js/rubro/:id?', element: <Ruber /> },
         { path: '*', element: <Error /> },
       ],
     },

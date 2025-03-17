@@ -5,5 +5,5 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/hackacademy-u3-ej3v2/',
+  base: '/react-todo-js/',
 })

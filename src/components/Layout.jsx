@@ -5,7 +5,7 @@ function Layout() {
     <main className="flex min-h-screen items-center justify-center bg-gray-200">
       <div className="w-full max-w-lg rounded-lg bg-white p-6 shadow-md">
         <h2 className="fond-bold mb-6 text-center text-3xl text-gray-800 hover:text-orange-900">
-          <Link to="/hackacademy-u3-ej3v2/">HackList</Link>
+          <Link to="/react-todo-js/">HackList</Link>
         </h2>
         <Outlet />
       </div>
