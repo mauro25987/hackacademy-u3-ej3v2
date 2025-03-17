@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { Modal } from "../components/components";
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { Modal } from '../components/components'
 
 function RuberList() {
-  const [showModal, setShowModal] = useState(false);
-  const rubers = useSelector((state) => state.rubers);
+  const [showModal, setShowModal] = useState(false)
+  const rubers = useSelector(state => state.rubers)
 
   useEffect(() => {
-    document.title = "HackList";
-  }, []);
+    document.title = 'HackList'
+  }, [])
 
   return (
     <>
       <ul className="space-y-3">
         {rubers.length > 0 &&
-          rubers.map((ruber) => (
+          rubers.map(ruber => (
             <li
               className="rounded-lg border bg-gray-100 p-4 hover:border-red-800 hover:shadow-inner"
               key={ruber.id}
@@ -48,7 +48,7 @@ function RuberList() {
 
       {showModal && <Modal setShowModal={setShowModal} />}
     </>
-  );
+  )
 }
 
-export default RuberList;
+export default RuberList

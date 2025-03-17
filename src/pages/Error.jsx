@@ -1,10 +1,10 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 function Error() {
   useEffect(() => {
-    document.title = "Error";
-  }, []);
+    document.title = 'Error'
+  }, [])
 
   return (
     <>
@@ -20,7 +20,7 @@ function Error() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Error;
+export default Error

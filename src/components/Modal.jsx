@@ -1,20 +1,20 @@
-import { nanoid } from "@reduxjs/toolkit";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addRuber } from "../reducer/rubersSlice";
+import { nanoid } from '@reduxjs/toolkit'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addRuber } from '../reducer/rubersSlice'
 
 function Modal({ setShowModal }) {
-  const [ruber, setRuber] = useState({ name: "", description: "" });
-  const dispatch = useDispatch();
+  const [ruber, setRuber] = useState({ name: '', description: '' })
+  const dispatch = useDispatch()
 
   const setDateTime = () => {
-    const date = new Date();
-    const [year, month, day] = [date.getFullYear(), date.getMonth() + 1, date.getDate()];
-    return `${year}-${month}-${day}`;
-  };
+    const date = new Date()
+    const [year, month, day] = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
+    return `${year}-${month}-${day}`
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = e => {
+    e.preventDefault()
     dispatch(
       addRuber({
         id: nanoid(),
@@ -23,11 +23,11 @@ function Modal({ setShowModal }) {
         date: setDateTime(),
         total: 0,
         complet: 0,
-      }),
-    );
-    setRuber({ name: "", description: "" });
-    setShowModal(false);
-  };
+      })
+    )
+    setRuber({ name: '', description: '' })
+    setShowModal(false)
+  }
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 backdrop-blur-sm">
@@ -46,7 +46,7 @@ function Modal({ setShowModal }) {
               type="text"
               placeholder="Nombre de Rubro"
               required
-              onChange={(e) => setRuber({ ...ruber, [e.target.name]: e.target.value })}
+              onChange={e => setRuber({ ...ruber, [e.target.name]: e.target.value })}
             />
           </div>
           <div className="self-end">
@@ -60,7 +60,7 @@ function Modal({ setShowModal }) {
               value={ruber.description}
               type="text"
               placeholder="Descripcion de Rubro"
-              onChange={(e) => setRuber({ ...ruber, [e.target.name]: e.target.value })}
+              onChange={e => setRuber({ ...ruber, [e.target.name]: e.target.value })}
             />
           </div>
           <div className="flex items-center justify-between">
@@ -77,7 +77,7 @@ function Modal({ setShowModal }) {
         </div>
       </form>
     </div>
-  );
+  )
 }
 
-export default Modal;
+export default Modal

@@ -1,54 +1,54 @@
-import { nanoid } from "@reduxjs/toolkit";
-import { useEffect, useState } from "react";
-import { FaCirclePlus, FaPencil, FaTrash } from "react-icons/fa6";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { addProduct, delRuber, editRuber } from "../reducer/rubersSlice";
-import { RuberProduct } from "./../components/components";
+import { nanoid } from '@reduxjs/toolkit'
+import { useEffect, useState } from 'react'
+import { FaCirclePlus, FaPencil, FaTrash } from 'react-icons/fa6'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { addProduct, delRuber, editRuber } from '../reducer/rubersSlice'
+import { RuberProduct } from './../components/components'
 
 function Ruber() {
-  const params = useParams();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const ruber = useSelector((state) => state.rubers.find((ruber) => ruber.id === params.id));
+  const params = useParams()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const ruber = useSelector(state => state.rubers.find(ruber => ruber.id === params.id))
 
-  const [product, setProduct] = useState("");
-  const [IsEditing, setIsEditing] = useState(false);
-  const [nameRuber, setNameRuber] = useState(ruber.name);
+  const [product, setProduct] = useState('')
+  const [IsEditing, setIsEditing] = useState(false)
+  const [nameRuber, setNameRuber] = useState(ruber.name)
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = e => {
+    e.preventDefault()
     dispatch(
       addProduct({
         idRuber: params.id,
         id: nanoid(),
         product,
-      }),
-    );
-    setProduct("");
-  };
+      })
+    )
+    setProduct('')
+  }
 
   useEffect(() => {
-    document.title = "Rubro";
-  }, []);
+    document.title = 'Rubro'
+  }, [])
 
   const isEditRuberIcon = IsEditing ? (
     <input
       type="text"
       value={nameRuber}
-      onChange={(e) => setNameRuber(e.target.value)}
+      onChange={e => setNameRuber(e.target.value)}
       onBlur={() => {
-        setIsEditing(false);
-        nameRuber.trim() === ""
+        setIsEditing(false)
+        nameRuber.trim() === ''
           ? (ruber.name, setNameRuber(ruber.name))
-          : dispatch(editRuber({ idRuber: ruber.id, name: nameRuber }));
+          : dispatch(editRuber({ idRuber: ruber.id, name: nameRuber }))
       }}
       className="mr-2 w-48 rounded-lg border-2 border-gray-300 px-4 duration-200 focus:border-indigo-500 focus:outline-none sm:mr-0 sm:w-64"
       autoFocus
     />
   ) : (
     <h1 className="text-lg font-semibold text-gray-800">{ruber.name}</h1>
-  );
+  )
 
   return (
     <>
@@ -63,8 +63,8 @@ function Ruber() {
           <FaTrash
             className="cursor-pointer text-red-800 hover:text-red-400"
             onClick={() => {
-              dispatch(delRuber({ id: params.id }));
-              navigate("/");
+              dispatch(delRuber({ id: params.id }))
+              navigate('/')
             }}
           />
         </div>
@@ -84,7 +84,7 @@ function Ruber() {
             type="text"
             placeholder="Agregar nuevo producto"
             required
-            onChange={(e) => setProduct(e.target.value)}
+            onChange={e => setProduct(e.target.value)}
           />
         </div>
       </form>
@@ -95,7 +95,7 @@ function Ruber() {
         <Link to="/">Volver</Link>
       </button>
     </>
-  );
+  )
 }
 
-export default Ruber;
+export default Ruber
